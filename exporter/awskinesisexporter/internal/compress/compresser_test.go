@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/compress"
+	"github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/compress"
 )
 
 func TestCompressorFormats(t *testing.T) {

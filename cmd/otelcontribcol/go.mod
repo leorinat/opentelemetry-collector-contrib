@@ -15,7 +15,7 @@ require (
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/alibabacloudlogserviceexporter v0.97.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awscloudwatchlogsexporter v0.97.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awsemfexporter v0.97.0
-	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter v0.97.0
+	github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter v0.97.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter v0.97.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awsxrayexporter v0.97.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/exporter/azuredataexplorerexporter v0.97.0
@@ -820,7 +820,7 @@ replace github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awsec
 
 replace github.com/open-telemetry/opentelemetry-collector-contrib/extension/oidcauthextension => ../../extension/oidcauthextension
 
-replace github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter => ../../exporter/awskinesisexporter
+replace github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter => ../../exporter/awskinesisexporter
 
 replace github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl => ../../pkg/ottl
 

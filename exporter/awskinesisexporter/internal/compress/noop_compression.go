@@ -1,12 +1,17 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-package compress // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/compress"
+package compress // import "github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/compress"
 
 import "io"
 
 type noop struct {
 	data io.Writer
+}
+
+func (n *noop) Close() error {
+	//TODO implement me
+	panic("implement me")
 }
 
 func NewNoopCompressor() Compressor {
