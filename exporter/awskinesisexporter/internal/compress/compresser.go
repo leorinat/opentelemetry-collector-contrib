@@ -50,7 +50,6 @@ func flateCompressor(in []byte) ([]byte, error) {
 func gzipCompressor(in []byte) ([]byte, error) {
 	var buf bytes.Buffer
 	w, _ := gzip.NewWriterLevel(&buf, gzip.BestSpeed)
-	defer w.Close()
 
 	_, err := w.Write(in)
 
@@ -59,6 +58,11 @@ func gzipCompressor(in []byte) ([]byte, error) {
 	}
 
 	err = w.Flush()
+	if err != nil {
+		return nil, err
+	}
+
+	err = w.Close()
 	if err != nil {
 		return nil, err
 	}
