@@ -4,7 +4,10 @@
 package compress_test
 
 import (
+	"bytes"
+	"compress/gzip"
 	"fmt"
+	"io"
 	"math/rand"
 	"sync"
 	"testing"
@@ -29,6 +32,14 @@ func TestCompressorFormats(t *testing.T) {
 		{format: "flate"},
 	}
 
+	source := rand.NewSource(time.Now().UnixMilli())
+	genRand := rand.New(source)
+
+	data2 := make([]byte, 1065)
+	for i := 0; i < 1065; i++ {
+		data2[i] = byte(genRand.Int31())
+	}
+
 	const data = "You know nothing Jon Snow"
 	for _, tc := range testCases {
 		t.Run(fmt.Sprintf("format_%s", tc.format), func(t *testing.T) {
@@ -36,13 +47,36 @@ func TestCompressorFormats(t *testing.T) {
 			require.NoError(t, err, "Must have a valid compression format")
 			require.NotNil(t, c, "Must have a valid compressor")
 
-			out, err := c([]byte(data))
+			out, err := c([]byte(data2))
 			assert.NoError(t, err, "Must not error when processing data")
 			assert.NotNil(t, out, "Must have a valid record")
+
+			if tc.format == "gzip" {
+				dc, err2 := decompress(out)
+
+				assert.NoError(t, err2)
+				assert.Equal(t, data2, dc)
+			}
 		})
 	}
 	_, err := compress.NewCompressor("invalid-format")
 	assert.Error(t, err, "Must error when an invalid compression format is given")
+}
+
+func decompress(input []byte) ([]byte, error) {
+	r, err := gzip.NewReader(bytes.NewReader(input))
+	if err != nil {
+		return nil, err
+	}
+
+	defer r.Close()
+
+	decompressedData, err := io.ReadAll(r)
+	if err != nil {
+		return nil, err
+	}
+
+	return decompressedData, nil
 }
 
 func BenchmarkNoopCompressor_1000Bytes(b *testing.B) {
