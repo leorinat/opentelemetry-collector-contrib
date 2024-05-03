@@ -1,4 +1,4 @@
-module github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter
+module github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter
 
 go 1.21.0
 
