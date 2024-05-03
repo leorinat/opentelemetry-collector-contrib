@@ -6,6 +6,7 @@ package compress // import "github.com/leorinat/opentelemetry-collector-contrib/
 import (
 	"bytes"
 	"compress/flate"
+	"compress/gzip"
 	"fmt"
 	"log"
 )
@@ -47,23 +48,21 @@ func flateCompressor(in []byte) ([]byte, error) {
 }
 
 func gzipCompressor(in []byte) ([]byte, error) {
-	//var buf bytes.Buffer
-	//w, _ := gzip.NewWriterLevel(&buf, gzip.BestSpeed)
-	//
-	//_, err := w.Write(in)
-	//
-	//if err != nil {
-	//	return nil, err
-	//}
-	//
-	//err = w.Close()
-	//if err != nil {
-	//	return nil, err
-	//}
-	//
-	//return buf.Bytes(), nil
-	return in, nil
+	var buf bytes.Buffer
+	w, _ := gzip.NewWriterLevel(&buf, gzip.BestSpeed)
 
+	_, err := w.Write(in)
+
+	if err != nil {
+		return nil, err
+	}
+
+	err = w.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
 }
 
 func zlibCompressor(in []byte) ([]byte, error) {
