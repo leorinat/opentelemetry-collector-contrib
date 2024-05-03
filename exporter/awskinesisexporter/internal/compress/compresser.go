@@ -62,7 +62,7 @@ func gzipCompressor(in []byte) ([]byte, error) {
 	//}
 	//
 	//return buf.Bytes(), nil
-
+	log.Fatal("HORRIBLE FAILURE")
 	return in, nil
 
 }
