@@ -3,7 +3,7 @@
 
 //go:generate mdatagen metadata.yaml
 
-package awskinesisexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter"
+package awskinesisexporter // import "github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter"
 
 import (
 	"context"
@@ -13,8 +13,8 @@ import (
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/batch"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/metadata"
+	"github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/batch"
+	"github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/metadata"
 )
 
 const (

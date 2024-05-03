@@ -16,7 +16,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/compress"
+	"github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/compress"
 )
 
 func TestCompressorFormats(t *testing.T) {
@@ -32,22 +32,15 @@ func TestCompressorFormats(t *testing.T) {
 		{format: "flate"},
 	}
 
-	source := rand.NewSource(time.Now().UnixMilli())
-	genRand := rand.New(source)
+	data := createRandomString()
 
-	data2 := make([]byte, 1065)
-	for i := 0; i < 1065; i++ {
-		data2[i] = byte(genRand.Int31())
-	}
-
-	const data = "You know nothing Jon Snow"
 	for _, tc := range testCases {
 		t.Run(fmt.Sprintf("format_%s", tc.format), func(t *testing.T) {
 			c, err := compress.NewCompressor(tc.format)
 			require.NoError(t, err, "Must have a valid compression format")
 			require.NotNil(t, c, "Must have a valid compressor")
 
-			out, err := c([]byte(data2))
+			out, err := c([]byte(data))
 			assert.NoError(t, err, "Must not error when processing data")
 			assert.NotNil(t, out, "Must have a valid record")
 
@@ -55,12 +48,23 @@ func TestCompressorFormats(t *testing.T) {
 				dc, err2 := decompress(out)
 
 				assert.NoError(t, err2)
-				assert.Equal(t, data2, dc)
+				assert.Equal(t, data, string(dc))
 			}
 		})
 	}
 	_, err := compress.NewCompressor("invalid-format")
 	assert.Error(t, err, "Must error when an invalid compression format is given")
+}
+
+func createRandomString() string {
+	const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+	b := make([]byte, 1024)
+	for i := range b {
+		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+	}
+
+	return string(b)
 }
 
 func decompress(input []byte) ([]byte, error) {

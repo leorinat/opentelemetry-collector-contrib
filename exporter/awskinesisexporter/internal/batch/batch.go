@@ -1,7 +1,7 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-package batch // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/batch"
+package batch // import "github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/batch"
 
 import (
 	"errors"
@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/kinesis/types" //nolint:staticcheck // Some encoding types uses legacy prototype version
 	"go.opentelemetry.io/collector/consumer/consumererror"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/compress"
+	"github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/compress"
 )
 
 const (

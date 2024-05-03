@@ -1,7 +1,7 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-package key // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/key"
+package key // import "github.com/leorinat/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/key"
 
 import (
 	"github.com/google/uuid"
